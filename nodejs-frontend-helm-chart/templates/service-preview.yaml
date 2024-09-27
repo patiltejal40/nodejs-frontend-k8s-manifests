@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodejs-app-preview
+  namespace: basic-frontend
+spec:
+  type: {{ .Values.service_preview.type }}
+  ports:
+    - port: {{ .Values.service_preview.port }}
+      targetPort: {{ .Values.service_preview.targetPort }}
+      nodePort: {{ .Values.service_preview.nodePort }}  # Add this line to use the NodePort value
+  selector:
+    app: nodejs-app-preview

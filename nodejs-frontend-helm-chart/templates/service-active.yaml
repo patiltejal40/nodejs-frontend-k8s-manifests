@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodejs-app-active
+  namespace: basic-frontend
+spec:
+  type: {{ .Values.service_active.type }}
+  ports:
+    - port: {{ .Values.service_active.port }}
+      targetPort: {{ .Values.service_active.targetPort }}
+      nodePort: {{ .Values.service_active.nodePort }} # Add this line to use the NodePort value
+  selector:
+    app: nodejs-app-active

@@ -1,13 +1,13 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
-  name: {{ .Release.Name }}-nodejs-app
+  name: nodejs-app
   namespace: basic-frontend
   annotations:
     pref.argocd.argoproj.io/default-view: pods
     pref.argocd.argoproj.io/default-pod-sort: node
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: 1
   selector:
     matchLabels:
       app: nodejs-app
@@ -18,21 +18,22 @@ spec:
     spec:
       containers:
         - name: nodejs-app
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          image: patiltejal40/github-actions-frontend:20240917055258
           ports:
-            - containerPort: {{ .Values.service.targetPort }}
+            - containerPort: 3000
+              protocol: TCP
           livenessProbe:
             httpGet:
-              path: {{ .Values.livenessProbe.path }}
-              port: {{ .Values.livenessProbe.port }}
-            initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
-            periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
+              path: /
+              port: 3000
+            initialDelaySeconds: 30
+            periodSeconds: 10
           readinessProbe:
             httpGet:
-              path: {{ .Values.readinessProbe.path }}
-              port: {{ .Values.readinessProbe.port }}
-            initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
-            periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
+              path: /
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 10
   strategy:
     blueGreen:
       activeService: nodejs-app-active
