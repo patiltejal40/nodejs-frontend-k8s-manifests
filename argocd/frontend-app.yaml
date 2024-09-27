@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nodejs-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: "https://github.com/patiltejal40/nodejs-frontend-k8s-manifests.git"
+    targetRevision: main
+    path: ./nodejs-frontend-helm-chart
+    helm:
+      valueFiles:
+        - values.yaml
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: basic-frontend
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

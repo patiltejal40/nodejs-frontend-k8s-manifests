@@ -1,17 +1,29 @@
-# Default values for spring-app.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
-
 replicaCount: 1
 namespace: basic-frontend
 image:
   repository: patiltejal40/github-actions-frontend
   tag: "20240917055258"
   pullPolicy: IfNotPresent
+
 service:
-  type: LoadBalancer
+  type: NodePort
   port: 80
   targetPort: 3000
+  nodePort: 30083
+
+service_active:
+  type: NodePort
+  port: 80
+  targetPort: 3000
+  nodePort: 30080
+
+service_preview:
+  type: NodePort
+  port: 80
+  targetPort: 3000
+  nodePort: 30081
+
+
 livenessProbe:
   path: /
   port: 3000
