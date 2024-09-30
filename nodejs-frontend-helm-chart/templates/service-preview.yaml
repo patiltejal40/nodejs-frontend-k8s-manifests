@@ -8,6 +8,6 @@ spec:
   ports:
     - port: {{ .Values.service_preview.port }}
       targetPort: {{ .Values.service_preview.targetPort }}
-      nodePort: {{ .Values.service_preview.nodePort }}  # Add this line to use the NodePort value
+      nodePort: {{ .Values.service_preview.nodePort }} # Add this line to use the NodePort value
   selector:
-    app: nodejs-app-preview
+    app: nodejs-app

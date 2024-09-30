@@ -10,4 +10,4 @@ spec:
       targetPort: {{ .Values.service_active.targetPort }}
       nodePort: {{ .Values.service_active.nodePort }} # Add this line to use the NodePort value
   selector:
-    app: nodejs-app-active
+    app: nodejs-app
